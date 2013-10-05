@@ -25,6 +25,7 @@ type
     ToolButton7: TToolButton;
     Button4: TButton;
     Memo1: TMemo;
+    StringGrid2: TStringGrid;
     procedure FormShow(Sender: TObject);
     procedure StringGrid1DrawCell(Sender: TObject; ACol, ARow: Integer;
       Rect: TRect; State: TGridDrawState);

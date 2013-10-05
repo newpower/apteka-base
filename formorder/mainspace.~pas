@@ -140,6 +140,8 @@ type
     RegKR : string [25];
     cost_min:real;
     cost_max:real;
+    select:Boolean;
+    comment:string [100];
     end;
   type TClientData =  record
     UserName:string;
@@ -417,13 +419,13 @@ begin
 
        dt.AddFormField('submit-url', '/admin/saveconf_sc.as');
 
-        IdHTTP1.Post('http://agro2b.nawww.ru/myspace/base/obmen.php',dt,LocalFile);
+        IdHTTP1.Post('http://apteka-rostov.nawww.ru/obmen.php',dt,LocalFile);
       //    IdHTTP1.Get('http://agro2b.nawww.ru/index_info.php',LocalFile); //
           IdHTTP1.Disconnect
      end;
      except
      flag_connect:=False;
-     ShowMessage('Проблема интернет, при подключении к серверу'#13#10);
+     ShowMessage('Проблема связи, при подключении к серверу'#13#10);
       //      ShowMessage('1'#13#10+Clearstr);
      end;
        LocalFile.Free;
@@ -578,7 +580,7 @@ begin
 
 
       //Загружаем прайс лист
-     if sr.Name = 'data.csv' then
+     if sr.Name = 'price.xml' then
       begin
          try
            LoadNewPrice;
@@ -661,7 +663,7 @@ begin
    ClientData.UserName:= IniFile.ReadString('Client','UserName','user');
      ClientData.ClientCode:= IniFile.ReadString('Client','ClientCode','55');
      ClientData.ClientPhone:=IniFile.ReadString('Client','ClientPhone','');
-
+    ClientData.PriceDate =IniFile.ReadString('Client','PriceDate','');
      
    ClientData.OrdersCount:= IniFile.ReadInteger('Client','OrdersCount',0);
 
@@ -734,6 +736,7 @@ begin
     reset(PriceFile)
   else
     rewrite(PriceFile);
+
 
 
     loadprice;
@@ -852,7 +855,8 @@ begin
         Pricegrid.Cells[col_prise,i+1]:=floattostrf(Rec.Price*clientcoef[Rec.group],fffixed,7,2);
         if StrToFloat(Pricegrid.Cells[col_prise,i+1]) < rec.cost_min then
           Pricegrid.Cells[col_prise,i+1]:=FloatToStr(rec.cost_min);
-        if StrToFloat(Pricegrid.Cells[col_prise,i+1]) > rec.cost_max then
+
+        if (StrToFloat(Pricegrid.Cells[col_prise,i+1]) > rec.cost_max) and (rec.cost_max > 0) then
           Pricegrid.Cells[col_prise,i+1]:=FloatToStr(rec.cost_max);
       end;
     if Rec.Count*Rec.Price > 4000 Then
@@ -894,63 +898,134 @@ var pFile:TextFile;
     i:integer;
     rec:PriceRecord;
     iniFile:TiniFile;
-    s:string;
+    s,datetimedoc:string;
 begin
-  if not fileexists(ExeDir+'Data/Inbox/data.csv') then
+  if not fileexists(ExeDir+'Data/Inbox/price.xml') then
+    begin
+        ShowMessage('Файл получен'+ExeDir+'Data/Inbox/price.xml');
     exit;
+    end;
+    ShowMessage('Obrabotka fil');
   try
     closeFile(PriceFile);
     assignFile(PriceFile,ExeDir+'Data/price.plm');
     rewrite(PriceFile);
 
-    assignFile(PFile,ExeDir+'Data/Inbox/data.csv');
+    assignFile(PFile,ExeDir+'Data/Inbox/price.xml');
+
     Reset(PFile);
+    readln(PFile,str);
     readln(PFile,str);
     i:=0;
     while not Eof(PFile) do
     begin
       readln(PFile,str);
-      s:=str;
-      DeleteDelimeter(';',str);
-      Rec.code:=DeleteDelimeter(';',str);
-      Rec.name:=DeleteDelimeter(';',str);
-      Rec.Maker:=DeleteDelimeter(';',str);
-      Rec.Codser:=DeleteDelimeter(';',str);
-      Rec.Goden:=DeleteDelimeter(';',str);
-      Rec.Seria:=DeleteDelimeter(';',str);
-      try
-      Rec.Price:=strtof(DeleteDelimeter(';',str));
-      Rec.Count:=strtoint(DeleteDelimeter(';',str));
-      Rec.Group:=strtoint(DeleteDelimeter(';',str));
-      Rec.ZN:=DeleteDelimeter(';',str);
-      Rec.RegKR:=DeleteDelimeter(';',str);
-      Rec.cost_min:=strtof(DeleteDelimeter(';',str));
-      Rec.cost_max:=strtof(DeleteDelimeter(';',str));
 
-      except
-      end;
+      //Записываем дату прайса
+      if Pos('<price ',str)=1 Then
+         begin
+                Delete(str,1,Pos('datetimedoc="',str)+12);
+                datetimedoc:= copy(str,1,Pos('"',str)-1);
 
-     // delete(str,Length(str),1);
-     // delete(str,1,1);
-     // Rec.RegKR:=str;
-      
+                IniFile:=TIniFile.Create(ExeIni);
+                Inifile.WriteString('Client','PriceDate',datetimedoc);
+                ClientData.PriceDate:=datetimedoc;
+                IniFile.Free;
 
-//      Rec.Group:=strtoint(str);
-      Rec.zakaz:=0;
-      Rec.Summa:=0;
-      seek(PriceFile,i);
-      write(PriceFile,Rec);
-      i:=i+1;
+
+           //     Delete(str,1,Pos('captionfirm="',str)+12);
+           //     captionfirm:=copy(str,1,Pos('"',str)-1)+' ';
+
+           //     Delete(str,1,Pos('comment="',str)+8);
+           //     comment:=date_str+copy(str,1,Pos('"',str)-1);
+          end;
+
+          if Pos('<line',str)=1 Then
+          begin
+
+              Delete(str,1,Pos('frm_codtovar="',str)+13);
+              Rec.code:= copy(str,1,Pos('"',str)-1);
+
+              Delete(str,1,Pos('frm_tovarname="',str)+14);
+              Rec.name:= copy(str,1,Pos('"',str)-1);
+
+              Delete(str,1,Pos('frm_macker="',str)+11);
+              Rec.Maker:= copy(str,1,Pos('"',str)-1);
+
+              Delete(str,1,Pos('frm_codser="',str)+13);
+              Rec.Codser:= copy(str,1,Pos('"',str)-1);
+
+              Delete(str,1,Pos('frm_goodnes="',str)+12);
+              Rec.Goden:= copy(str,1,Pos('"',str)-1);
+
+              Delete(str,1,Pos('frm_numser="',str)+11);
+              Rec.Seria:= copy(str,1,Pos('"',str)-1);
+
+
+              try
+              Delete(str,1,Pos('frm_prise="',str)+10);
+              Rec.Price:= strtof(copy(str,1,Pos('"',str)-1));
+
+              // Rec.Price:=strtof(DeleteDelimeter(';',str));
+              Delete(str,1,Pos('frm_number="',str)+11);
+              Rec.Count:= strtoint(copy(str,1,Pos('"',str)-1));
+
+              // Rec.Count:=strtoint(DeleteDelimeter(';',str));
+              Delete(str,1,Pos('frm_group="',str)+11);
+              Rec.Group:= strtoint(copy(str,1,Pos('"',str)-1));
+
+              //Rec.Group:=strtoint(DeleteDelimeter(';',str));
+
+              Delete(str,1,Pos('frm_gvp="',str)+8);
+              Rec.ZN:= copy(str,1,Pos('"',str)-1);
+
+              // Rec.ZN:=DeleteDelimeter(';',str);
+              Delete(str,1,Pos('frm_regk="',str)+9);
+              Rec.RegKR:= copy(str,1,Pos('"',str)-1);
+
+              // Rec.RegKR:=DeleteDelimeter(';',str);
+              Delete(str,1,Pos('frm_prise_min_cost="',str)+19);
+              Rec.cost_min:= strtof(copy(str,1,Pos('"',str)-1));
+              //Rec.cost_min:=strtof(DeleteDelimeter(';',str));
+              Delete(str,1,Pos('frm_prise_max_cost="',str)+19);
+              Rec.cost_max:= strtof(copy(str,1,Pos('"',str)-1));
+
+              Delete(str,1,Pos('select="',str)+7);
+              Rec.select:=False;
+
+             if (copy(str,1,Pos('"',str)-1) = '1')  then
+               Rec.select:=True;
+
+              Delete(str,1,Pos('comment="',str)+8);
+              Rec.comment:= copy(str,1,Pos('"',str)-1);
+
+              // Rec.cost_max:=strtof(DeleteDelimeter(';',str));
+
+
+        except
+        end;
+            Rec.zakaz:=0;
+            Rec.Summa:=0;
+            seek(PriceFile,i);
+            write(PriceFile,Rec);
+            i:=i+1;
+            ShowMessage(Rec.name);
+        end;
+
+
     end;
+
+                Rec.zakaz:=0;
+            Rec.Summa:=0;
+            seek(PriceFile,i);
+            write(PriceFile,Rec);
+            i:=i+1;
+            ShowMessage(Rec.name);
+            
+
     closeFile(PFile);
-    DeleteFile(ExeDir+'Data/Inbox/data.csv');
-    try
-    IniFile:=TIniFile.Create(ExeIni);
-    Inifile.WriteString('Client','PriceDate',datetoStr(now));
-    ClientData.PriceDate:=datetoStr(now);
-    IniFile.Free;
-    except
-    end;
+  //  DeleteFile(ExeDir+'Data/Inbox/price.xml');
+
   except
     ShowMessage('При приемке прайс листа произошла попробуйте еще раз, если ошибка повторится свяжитесь со службой подержки');
 //        ShowMessage(s);

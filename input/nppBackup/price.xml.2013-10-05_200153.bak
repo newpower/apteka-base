@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<prices>
+<price datetimedoc="2013.10.05 17:57:17" captionfirm="" comment="">
+<line frm_idtovar="1" frm_codtovar="1911128063"  frm_tovarname="L-тироксин таб. 100мкг №100 (9 ИМП)" frm_macker="Lek"  frm_codser="368513"  frm_goodnes="01.12.17" frm_numser="DC4293" frm_prise="90" frm_number="13" frm_group="0" frm_regk="" frm_prise_min_cost="1" frm_prise_max_cost="100" select="0" comment="" />
+<line frm_idtovar="2" frm_codtovar="6611668063"  frm_tovarname="Нагнетатетель" frm_macker="Щука!"  frm_codser="13"  frm_goodnes="29.12.99" frm_numser="DC4293" frm_prise="999" frm_number="13" frm_group="0" frm_regk="" frm_prise_min_cost="1" frm_prise_max_cost="1000" select="1" comment="" />
+</price>
+</prices>

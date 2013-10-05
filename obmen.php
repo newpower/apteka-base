@@ -20,12 +20,12 @@ function get_config()
 
 	$config=get_config();
 
-	//снова создаем новый объект ZipArchive
+	//снова создаем новый объект ZipArchive 
 	$zip = new ZipArchive;
 	$res = $zip->open($config['file_name'], ZipArchive::CREATE);
-	
 	if (isset($config['req']['user_id']))
 	{
+
 		if (isset($config['req']['action']) and ($config['req']['action'] == 'put'))
 		{
 			 if ($_FILES["filename"]["size"] < 1024*3*1024) 
@@ -67,11 +67,13 @@ function get_config()
 		{
 			if (isset($config['req']['get_price']) and ($config['req']['get_price'] == '1'))
 			{
-				$text2 = file_get_contents($config['dir_input']."data.csv");
-				$zip->addFromString('data.csv', $text2);
+
+				$text2 = file_get_contents($config['dir_input']."price.xml");
+				$zip->addFromString('data.xml', $text2);
 				//$text2 = file_get_contents($config['dir_input']."polibase.csv");
 				//$zip->addFromString('polibase.csv', $text2);
-				$zip->addFromString('message_'.$config['req']['user_id'].'_'.$config['rand_value'].'.xml', set_message('Правйс листы получены!'));
+				$zip->addFromString('message_'.$config['req']['user_id'].'_'.$config['rand_value'].'.xml', set_message('Прайс лист получен!'));
+				echo "poluchenie prise <br>".$text2."ss".$config['dir_input']."price.xml";
 			}
 			//echo $config['file_name'];
 			$mas_files=array();
@@ -106,7 +108,7 @@ function get_config()
 	 // Читаем содержимое
 		  
 	$text = file_get_contents($config['file_name']);
-	header('Content-Type: application/zip');
+//	header('Content-Type: application/zip');
 	echo $text; 
 	if ($config['delete_files'] == 1) {unlink($config['file_name']);}
 		
