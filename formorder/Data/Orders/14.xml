@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="14" datedoc="28.06.2013" timedoc="14:15:54" usercod="5665" contractor="Аптечка №538" username="Аптечка №538" comment="">
+<line codtovar="1911234431" codser="302271" numser="1" tovarname="Шприц  KDM  20мл игла 0,8х40 однораз. 3-х компонентный (1)" prise="4,41" number="5"/>
+<line codtovar="1911220512" codser="349670" numser="191212" tovarname="Эуфиллин амп. 2,4% 5мл №10 (Отеч)" prise="22,39" number="12"/>
+<line codtovar="1911168685" codser="349092" numser="N9627" tovarname="Эффералган сироп детский 90мл (ИМП)" prise="90,75" number="5"/>
+</order>
+</orders>

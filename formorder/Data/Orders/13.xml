@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="13" datedoc="25.12.2007" timedoc="15:25:11" usercod="5665" contractor="Аптечка №538" username="Аптечка №538" comment="">
+<line codtovar="1911163725" codser="1092541" numser="63087" tovarname="L-тироксин таб. 100мкг №100 (9)" prise="102,30" number="1"/>
+</order>
+</orders>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="12" datedoc="24.12.2007" timedoc="18:28:38" usercod="5665" contractor="Аптечка №538" username="Аптечка №538" comment="">
+<line codtovar="1911138031" codser="1088177" numser="1052201I" tovarname="Абактал таб. 400мг №10 (1)" prise="115,48" number="7"/>
+</order>
+</orders>

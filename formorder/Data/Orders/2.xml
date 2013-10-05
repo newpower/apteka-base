@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="2" datedoc="01.10.2007" timedoc="8:18:07" usercod="5665" contractor="ООО ЛЕММА" username="Аптечка №538" comment="">
+<line codtovar="1911125049" codser="1024930" numser="3995503" tovarname="Абактал амп. 400мг 5мл №10 (1)" prise="446,41" number="2"/>
+<line codtovar="1911130149" codser="1064602" numser="010207" tovarname="Аевит капс. №10 (200)" prise="5,27" number="43"/>
+<line codtovar="1911130256" codser="1059784" numser="G35766" tovarname="Амбробене р-р 7,5мг/мл 100мл (1)" prise="92,23" number="5"/>
+<line codtovar="1911130277" codser="1028592" numser="6N5273" tovarname="Амброгексал сироп 3мг/мл 100мл (5)" prise="61,74" number="1"/>
+<line codtovar="1911161884" codser="1063060" numser="G26967" tovarname="Пантенол-Ратиофарм мазь 5% 35г (1)" prise="87,46" number="4"/>
+</order>
+</orders>

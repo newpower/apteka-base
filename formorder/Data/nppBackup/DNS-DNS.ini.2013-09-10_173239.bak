@@ -1,0 +1,17 @@
+[Client]
+User_id=55
+ClientName=йцу
+ClientPhone=
+ClientCode=
+OrdersCount=23
+UserName=123
+SN=0;10;
+PriceDate=09.09.2013
+[Connection]
+Server=
+UseProxy=0
+ProxyHost=1
+ProxyPort=3129
+ProxyLogin=
+ProxyType=-1
+ProxyPass=
