@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="23" datedoc="08.09.2013" timedoc="9:55:06" usercod="" contractor="" username="" comment="">
+<line codtovar="1911128063" codser="368513" numser="DC4293" tovarname="5-нок таб. п/о 50мг №50 (Словения)" prise="90,00" number="2"/>
+<line codtovar="1911128063" codser="360829" numser="DE0294" tovarname="5-нок таб. п/о 50мг №50 (Словения)" prise="91,20" number="6"/>
+<line codtovar="1911236340" codser="338565" numser="181111" tovarname="L-тироксин таб. 100мкг №100 (Отеч)" prise="60,90" number="3"/>
+<line codtovar="1911128847" codser="367064" numser="31009" tovarname="L-тироксин таб. 100мкг №50 (15 ИМП)" prise="90,00" number="3"/>
+<line codtovar="1911237735" codser="293269" numser="101111" tovarname="L-тироксин таб. 100мкг №50 (15 Отеч)" prise="45,60" number="2"/>
+<line codtovar="1911139025" codser="366420" numser="31006" tovarname="L-тироксин таб. 50мкг №50 (10 ИМП)" prise="76,70" number="4"/>
+<line codtovar="1911130099" codser="368650" numser="DF2807" tovarname="Абактал таб. 400мг №10 (Словения)" prise="187,25" number="3"/>
+<line codtovar="1911152788" codser="364958" numser="20812" tovarname="Абомин таб. 50000ЕД №10 (10)" prise="137,00" number="3"/>
+<line codtovar="1911167471" codser="363224" numser="170713" tovarname="Абрикоса масло 50мл (Отеч)" prise="36,50" number="2"/>
+<line codtovar="1911228578" codser="341408" numser="0213" tovarname="Абуцел паста для стомы 45г (Отеч)" prise="214,60" number="3"/>
+<line codtovar="1911235692" codser="368346" numser="C607919" tovarname="Авамис спрей назальный 27.5 мкг/доза 120 доз №1 (1)" prise="513,70" number="1"/>
+<line codtovar="1911173198" codser="358243" numser="2480313" tovarname="Авиа-море таб. №20 ()" prise="54,00" number="2"/>
+<line codtovar="1911241660" codser="330973" numser="1750213" tovarname="Агри [Антигрип. гомеопат.]  20г детский (1)" prise="47,00" number="2"/>
+<line codtovar="1911241569" codser="368792" numser="7011012" tovarname="Агри [Антигрип. гомеопат.] гран.гомеоп 20г пак 10гх2 (1)" prise="44,00" number="3"/>
+<line codtovar="1911158036" codser="324172" numser="9451212" tovarname="Агри [профилактика и лечение ОРЗ] таб. №40 (1)" prise="44,30" number="3"/>
+<line codtovar="1911248248" codser="349226" numser="1740213" tovarname="Агри детский [Антигрип. гомеопат.] таб. №40 (1)" prise="44,70" number="6"/>
+<line codtovar="1911226865" codser="337869" numser="49" tovarname="Ад минус №40 табл п/о (1)" prise="112,00" number="12"/>
+<line codtovar="1911174329" codser="367595" numser="23937A" tovarname="Адвантан крем 0,1% 15г (ИМП)" prise="325,00" number="3"/>
+<line codtovar="1911174329" codser="366001" numser="23941A" tovarname="Адвантан крем 0,1% 15г (ИМП)" prise="332,00" number="3"/>
+<line codtovar="1911174330" codser="362726" numser="24433C" tovarname="Адвантан мазь 0,1% 15г (ИМП)" prise="330,00" number="3"/>
+</order>
+</orders>

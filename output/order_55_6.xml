@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<orders>
+<order idorder="6" datedoc="07.09.2013" timedoc="21:18:57" usercod="" contractor="" username="" comment="">
+<line codtovar="1911163725" codser="343757" numser="23075" tovarname="L-тироксин таб. 100мкг №100 (9 ИМП)" prise="123,00" number="1"/>
+<line codtovar="1911237735" codser="293269" numser="101111" tovarname="L-тироксин таб. 100мкг №50 (15 Отеч)" prise="45,60" number="4"/>
+<line codtovar="1911241660" codser="330973" numser="1750213" tovarname="Агри [Антигрип. гомеопат.]  20г детский (1)" prise="47,00" number="5"/>
+<line codtovar="1911241569" codser="326126" numser="7011012" tovarname="Агри [Антигрип. гомеопат.] гран.гомеоп 20г пак 10гх2 (1)" prise="46,00" number="5"/>
+<line codtovar="1911158036" codser="324172" numser="9451212" tovarname="Агри [профилактика и лечение ОРЗ] таб. №40 (1)" prise="44,30" number="6"/>
+<line codtovar="1911248248" codser="349226" numser="1740213" tovarname="Агри детский [Антигрип. гомеопат.] таб. №40 (1)" prise="44,70" number="3"/>
+<line codtovar="1911226865" codser="337869" numser="49" tovarname="Ад минус №40 табл п/о (1)" prise="112,00" number="3"/>
+<line codtovar="1911226865" codser="359080" numser="50" tovarname="Ад минус №40 табл п/о (1)" prise="108,30" number="2"/>
+<line codtovar="1911204042" codser="364099" numser="280213" tovarname="Адаптол таб. 0,5г №20 (1)" prise="295,70" number="2"/>
+<line codtovar="1911174329" codser="362579" numser="23941A" tovarname="Адвантан крем 0,1% 15г (ИМП)" prise="326,90" number="1"/>
+</order>
+</orders>
