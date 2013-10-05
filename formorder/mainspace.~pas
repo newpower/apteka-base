@@ -674,10 +674,11 @@ begin
   ClientData.ProxyPass  := IniFile.readString('Connection','ProxyPass','');
 
    ClientData.user_id:= strtoi(IniFile.ReadString('Client','User_id','55'));
-   if (ClientData.user_id = 55) then
+   if (Length(ClientData.UserName) =0) then
+ //  if (ClientData.user_id = 55) then
     begin
-       ShowMessage('Для продолжения работы нажмите кнопку "Полуить прайс-лист"!');
-       IniFile.WriteString('Client','User_id',IntToStr(55))
+       ShowMessage('Для продолжения работы заполните наименование фирмы нажмите НАСТРОЙКА->ПЕРСОНАЛЬНЫЕ"!');
+    //   IniFile.WriteString('Client','User_id',IntToStr(55))
     end;
 
   Pricegrid.Cells[col_idtovar,0]:='№';
@@ -802,8 +803,8 @@ begin
    except
      price:=0;
    end;
-    if (PriceGrid.Cells[col_zn,PriceGrid.Row] = '*') and (price*(1+AptNac.Value/100) > 100)   then
-    ShowMessage('Tova ZN bolee');
+//    if (PriceGrid.Cells[col_zn,PriceGrid.Row] = '*') and (price*(1+AptNac.Value/100) > 100)   then
+//    ShowMessage('Tova ZN bolee');
   PriceWithNac.Caption:=floattostrf(price*(1+AptNac.Value/100),fffixed,7,2);
 
   if ((ACol = col_zakaz) and (ARow <> 0)) then

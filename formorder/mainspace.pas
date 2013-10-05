@@ -852,7 +852,8 @@ begin
         Pricegrid.Cells[col_prise,i+1]:=floattostrf(Rec.Price*clientcoef[Rec.group],fffixed,7,2);
         if StrToFloat(Pricegrid.Cells[col_prise,i+1]) < rec.cost_min then
           Pricegrid.Cells[col_prise,i+1]:=FloatToStr(rec.cost_min);
-        if StrToFloat(Pricegrid.Cells[col_prise,i+1]) > rec.cost_max then
+
+        if (StrToFloat(Pricegrid.Cells[col_prise,i+1]) > rec.cost_max) and (rec.cost_max > 0) then
           Pricegrid.Cells[col_prise,i+1]:=FloatToStr(rec.cost_max);
       end;
     if Rec.Count*Rec.Price > 4000 Then
@@ -903,7 +904,7 @@ begin
     assignFile(PriceFile,ExeDir+'Data/price.plm');
     rewrite(PriceFile);
 
-    assignFile(PFile,ExeDir+'Data/Inbox/data.csv');
+    assignFile(PFile,ExeDir+'Data/Inbox/data.xml');
     Reset(PFile);
     readln(PFile,str);
     i:=0;
