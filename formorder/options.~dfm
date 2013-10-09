@@ -190,7 +190,10 @@ object PersonalSettings: TPersonalSettings
     Top = 312
     Width = 305
     Height = 33
+    Cursor = crHandPoint
     Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+    DragCursor = crHandPoint
+    ModalResult = 1
     TabOrder = 3
     OnClick = BitBtn1Click
   end
@@ -200,6 +203,7 @@ object PersonalSettings: TPersonalSettings
     Width = 289
     Height = 33
     Caption = #1042#1099#1093#1086#1076
+    ModalResult = 2
     TabOrder = 4
     OnClick = BitBtn2Click
   end

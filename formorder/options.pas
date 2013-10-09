@@ -54,6 +54,7 @@ begin
     Label1.Font.Color:=clRed;
     ClientName.SetFocus;
     exit;
+
   end
   else
   begin

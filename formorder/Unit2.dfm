@@ -1,8 +1,8 @@
 object About: TAbout
   Left = 442
   Top = 154
-  Width = 319
-  Height = 368
+  Width = 475
+  Height = 456
   Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,18 +14,34 @@ object About: TAbout
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 8
+    Left = 16
     Top = 8
-    Width = 281
-    Height = 257
+    Width = 441
+    Height = 329
     BevelInner = bvRaised
     BevelOuter = bvLowered
     ParentColor = True
     TabOrder = 0
     object ProductName: TLabel
       Left = 2
+      Top = 26
+      Width = 437
+      Height = 24
+      Align = alTop
+      Alignment = taCenter
+      Caption = #1042#1045#1056#1057#1048#1071' 1.0.0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      IsControl = True
+    end
+    object Label1: TLabel
+      Left = 2
       Top = 2
-      Width = 277
+      Width = 437
       Height = 24
       Align = alTop
       Alignment = taCenter
@@ -40,15 +56,15 @@ object About: TAbout
     end
     object Memo1: TMemo
       Left = 2
-      Top = 26
-      Width = 277
-      Height = 89
+      Top = 50
+      Width = 437
+      Height = 143
       Align = alTop
       Alignment = taCenter
       Color = clBtnFace
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
-      Font.Height = -11
+      Font.Height = -16
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       Lines.Strings = (
@@ -63,9 +79,9 @@ object About: TAbout
     end
     object Memo2: TMemo
       Left = 2
-      Top = 115
-      Width = 277
-      Height = 138
+      Top = 193
+      Width = 437
+      Height = 147
       Align = alTop
       Alignment = taCenter
       Color = clBtnFace
@@ -90,10 +106,10 @@ object About: TAbout
     end
   end
   object OKButton: TButton
-    Left = 111
-    Top = 268
-    Width = 75
-    Height = 25
+    Left = 152
+    Top = 352
+    Width = 146
+    Height = 53
     Caption = 'OK'
     Default = True
     ModalResult = 1

@@ -14,6 +14,7 @@ object Form1: TForm1
   OldCreateOrder = False
   OnCreate = FormCreate
   OnResize = FormResize
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -56,7 +57,7 @@ object Form1: TForm1
     Width = 967
     Height = 520
     Align = alClient
-    ColCount = 16
+    ColCount = 18
     DefaultRowHeight = 20
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -72,6 +73,8 @@ object Form1: TForm1
     OnKeyPress = PricegridKeyPress
     OnSelectCell = PriceGridSelectCell
     ColWidths = (
+      64
+      64
       64
       64
       64
@@ -416,7 +419,7 @@ object Form1: TForm1
     object ToolBar1: TToolBar
       Left = 0
       Top = 0
-      Width = 697
+      Width = 600
       Height = 45
       Align = alClient
       ButtonHeight = 36
@@ -456,14 +459,49 @@ object Form1: TForm1
       end
     end
     object Panel6: TPanel
-      Left = 697
+      Left = 600
       Top = 0
-      Width = 270
+      Width = 367
       Height = 45
       Align = alRight
       BevelOuter = bvLowered
-      Caption = #1052#1077#1089#1090#1086' '#1076#1083#1103' '#1042#1072#1096#1077#1081' '#1088#1077#1082#1083#1072#1084#1099
+      Caption = 
+        '                                                                ' +
+        '            '#1052#1077#1089#1090#1086' '#1076#1083#1103' '#1074#1072#1096#1077#1075#1086' '#1083#1086#1075#1086#1090#1080#1087#1072'   '
       TabOrder = 1
+      object Panel7: TPanel
+        Left = 12
+        Top = 2
+        Width = 213
+        Height = 47
+        TabOrder = 0
+        object Label14: TLabel
+          Left = 0
+          Top = 0
+          Width = 193
+          Height = 16
+          Caption = #1042#1072#1096' '#1087#1077#1088#1089#1086#1085#1072#1083#1100#1085#1099#1081' '#1084#1077#1085#1077#1076#1078#1077#1088
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label15: TLabel
+          Left = 0
+          Top = 16
+          Width = 194
+          Height = 16
+          Caption = #1055#1077#1090#1088' '#1048#1074#1072#1085#1086#1074#1080#1095' 8 888 88 88 888'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+      end
     end
   end
   object ProgressPanel: TPanel
@@ -667,7 +705,7 @@ object Form1: TForm1
     Top = 192
   end
   object ImageList: TImageList
-    Left = 640
+    Left = 560
     Top = 8
     Bitmap = {
       494C01010F001300040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600

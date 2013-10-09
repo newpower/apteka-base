@@ -84,6 +84,9 @@ type
     N14: TMenuItem;
     N15: TMenuItem;
     Memo2: TMemo;
+    Panel7: TPanel;
+    Label14: TLabel;
+    Label15: TLabel;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -111,6 +114,7 @@ type
       const AWorkCountMax: Integer);
     procedure N5Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
 
 
 
@@ -140,7 +144,7 @@ type
     RegKR : string [25];
     cost_min:real;
     cost_max:real;
-    select:Boolean;
+    select:string [2];
     comment:string [100];
     end;
   type TClientData =  record
@@ -171,6 +175,7 @@ type
      FtpUserName:string;
      FTPPassword:String;
      ProxyType:integer;
+     PersonalManadger:string;
   end;
 
 var
@@ -199,6 +204,8 @@ var
   col_regkr:integer =13;
   col_cost_min:integer =14;
   col_cost_max:integer =15;
+  col_select:integer =16;
+  col_comment:integer =17;
 implementation
 
 uses Unit2, FormZakaz, options;
@@ -494,7 +501,7 @@ var
   Text:TextFile;
 begin
     IniFile:=TIniFile.Create(ExeIni);
-    //ShowMessage('Run procedure');
+ //   ShowMessage('Run procedure');
   if FindFirst(ExeDir+'Data\Inbox\*.*', FileAttrs, sr) = 0 then
     begin
       repeat
@@ -518,6 +525,12 @@ begin
             begin
              IniFile.WriteString('Client','SN',str_param_value)
             end;
+          if str_param = 'PersonalManadger'  then
+            begin
+             ClientData.PersonalManadger:=str_param_value;
+             IniFile.WriteString('Client','PersonalManadger',str_param_value)
+            end;
+
            RenameFile(ExeDir+'Data\Inbox\'+sr.Name,ExeDir+'Data\Params\'+sr.Name);
            DeleteFile(ExeDir+'Data\Inbox\'+sr.Name);
          finally
@@ -660,12 +673,13 @@ begin
  end;
 
 
-   ClientData.UserName:= IniFile.ReadString('Client','UserName','user');
+   ClientData.UserName:= IniFile.ReadString('Client','UserName','');
      ClientData.ClientCode:= IniFile.ReadString('Client','ClientCode','55');
      ClientData.ClientPhone:=IniFile.ReadString('Client','ClientPhone','');
     ClientData.PriceDate :=IniFile.ReadString('Client','PriceDate','');
-     
+
    ClientData.OrdersCount:= IniFile.ReadInteger('Client','OrdersCount',0);
+   ClientData.PersonalManadger:= IniFile.ReadString('Client','PersonalManadger','Петр Иванович 8-999-99-99-999');
 
    //Получаем настрокйки соединения
      ClientData.UseProxy   := IniFile.readBool('Connection','UseProxy',False);
@@ -676,12 +690,7 @@ begin
   ClientData.ProxyPass  := IniFile.readString('Connection','ProxyPass','');
 
    ClientData.user_id:= strtoi(IniFile.ReadString('Client','User_id','55'));
-   if (Length(ClientData.UserName) =0) then
- //  if (ClientData.user_id = 55) then
-    begin
-       ShowMessage('Для продолжения работы заполните наименование фирмы нажмите НАСТРОЙКА->ПЕРСОНАЛЬНЫЕ"!');
-    //   IniFile.WriteString('Client','User_id',IntToStr(55))
-    end;
+ 
 
   Pricegrid.Cells[col_idtovar,0]:='№';
   Pricegrid.Cells[col_codtovar,0]:='Код';
@@ -795,7 +804,7 @@ var
   R: TRect;
   price:real;
 begin
-   Label2.Caption:=PriceGrid.Cells[col_tovarname,Arow];
+   Label2.Caption:=PriceGrid.Cells[col_tovarname,Arow]+PriceGrid.Cells[col_comment,Arow];
    Label4.Caption:=PriceGrid.Cells[col_macker,Arow];
    Label9.Caption:=PriceGrid.Cells[col_numser,Arow]+ ' до '+PriceGrid.Cells[col_goodnes,Arow];
    Label10.Caption:=PriceGrid.Cells[col_prise,Arow];
@@ -841,6 +850,8 @@ begin
   begin
     seek(PriceFile,i);
     read(PriceFile,Rec);
+Pricegrid.Canvas.Brush.Color := clRed;
+
     Pricegrid.Cells[col_idtovar,i+1]:='';
     Pricegrid.Cells[col_codtovar,i+1]:=Rec.code;
     Pricegrid.Cells[col_tovarname,i+1]:=Rec.name;
@@ -879,10 +890,12 @@ begin
 
     Pricegrid.Cells[col_zn,i+1]:=Rec.ZN;
     Pricegrid.Cells[col_regkr,i+1]:=Rec.RegKR;
+    Pricegrid.Cells[col_select,i+1]:=Rec.select;
+    Pricegrid.Cells[col_comment,i+1]:=Rec.comment;
   end;
 
   PriceGrid.Enabled:=True;
-  Form1.Caption:='Электронный заказ товаров. Прайс лист от '+ClientData.PriceDate+'. Кол-во товаров: '+inttostr(i);
+  Form1.Caption:='Электронный заказ товаров. Прайс лист от '+ClientData.PriceDate+'. Ваш уникальный номер: '+inttostr(ClientData.user_id);
 end;
 
 function TForm1.deleteDelimeter(Delimeter: string; var str: string): string;
@@ -902,10 +915,10 @@ var pFile:TextFile;
 begin
   if not fileexists(ExeDir+'Data/Inbox/price.xml') then
     begin
-        ShowMessage('Файл получен'+ExeDir+'Data/Inbox/price.xml');
+   //     ShowMessage('Файл получен'+ExeDir+'Data/Inbox/price.xml');
     exit;
     end;
-    ShowMessage('Obrabotka fil');
+   // ShowMessage('Obrabotka fil');
   try
     closeFile(PriceFile);
     assignFile(PriceFile,ExeDir+'Data/price.plm');
@@ -952,7 +965,7 @@ begin
               Delete(str,1,Pos('frm_macker="',str)+11);
               Rec.Maker:= copy(str,1,Pos('"',str)-1);
 
-              Delete(str,1,Pos('frm_codser="',str)+13);
+              Delete(str,1,Pos('frm_codser="',str)+11);
               Rec.Codser:= copy(str,1,Pos('"',str)-1);
 
               Delete(str,1,Pos('frm_goodnes="',str)+12);
@@ -971,7 +984,7 @@ begin
               Rec.Count:= strtoint(copy(str,1,Pos('"',str)-1));
 
               // Rec.Count:=strtoint(DeleteDelimeter(';',str));
-              Delete(str,1,Pos('frm_group="',str)+11);
+              Delete(str,1,Pos('frm_group="',str)+10);
               Rec.Group:= strtoint(copy(str,1,Pos('"',str)-1));
 
               //Rec.Group:=strtoint(DeleteDelimeter(';',str));
@@ -991,10 +1004,8 @@ begin
               Rec.cost_max:= strtof(copy(str,1,Pos('"',str)-1));
 
               Delete(str,1,Pos('select="',str)+7);
-              Rec.select:=False;
+              Rec.select:=copy(str,1,Pos('"',str)-1);
 
-             if (copy(str,1,Pos('"',str)-1) = '1')  then
-               Rec.select:=True;
 
               Delete(str,1,Pos('comment="',str)+8);
               Rec.comment:= copy(str,1,Pos('"',str)-1);
@@ -1009,7 +1020,8 @@ begin
             seek(PriceFile,i);
             write(PriceFile,Rec);
             i:=i+1;
-            ShowMessage(Rec.name);
+            ShowMessage(Rec.name+' -- '+FloatToStr(Rec.cost_max));
+            
         end;
 
 
@@ -1020,7 +1032,7 @@ begin
             seek(PriceFile,i);
             write(PriceFile,Rec);
             i:=i+1;
-            ShowMessage(Rec.name);
+            ShowMessage(Rec.name+' -- '+Rec.select);
             
 
     closeFile(PFile);
@@ -1105,6 +1117,17 @@ procedure TForm1.PriceGridDrawCell(Sender: TObject; ACol, ARow: Integer;
   Rect: TRect; State: TGridDrawState);
   var sumatsklad:real;
 begin
+  // ShowMessage(PriceGrid.Cells[col_select,ARow]);
+if PriceGrid.Cells[col_select,ARow] = '1' then
+  begin
+    with TStringGrid(Sender), Canvas do
+      begin
+        Brush.Color :=03728997;
+        FillRect(Rect);
+        TextRect(Rect, Rect.Left + 2, Rect.Top + 2, Cells[aCol, aRow]);
+      end;
+  end;
+
 if aRow=0 Then
   begin
      with TStringGrid(Sender), Canvas do
@@ -1243,6 +1266,18 @@ end;
 procedure TForm1.ToolButton2Click(Sender: TObject);
 begin
       Zakaz.showModal;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+Label15.Caption:=ClientData.PersonalManadger;
+  if (Length(ClientData.UserName) =0) then
+    begin
+    PersonalSettings.showmodal;
+       ShowMessage('Для продолжения работы заполните наименование фирмы нажмите НАСТРОЙКА->ПЕРСОНАЛЬНЫЕ"!');
+
+    //   IniFile.WriteString('Client','User_id',IntToStr(55))
+    end;
 end;
 
 end.

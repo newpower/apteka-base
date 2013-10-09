@@ -72,7 +72,7 @@ begin
   clientdata.ProxyPass:=ProxyPasswordEdit.Text;
 
    IniFile:=TIniFile.Create(ExeIni);
-   IniFile.WriteString('Client','ClientName',ClientData.UserName);
+   IniFile.WriteString('Client','UserName',ClientData.UserName);
  IniFile.WriteString('Client','ClientPhone',ClientData.ClientPhone);
   IniFile.WriteString('Client','ClientCode',ClientData.ClientCode);
 

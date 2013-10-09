@@ -13,6 +13,7 @@ type
     Memo1: TMemo;
     Memo2: TMemo;
     OKButton: TButton;
+    Label1: TLabel;
     procedure OKButtonClick(Sender: TObject);
   private
     { Private declarations }
